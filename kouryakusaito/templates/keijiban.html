@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}掲示板{% endblock %}
+
+{% block keijiban %}
+
+<div class="containerdd-choice">
+    <div class="griddd">
+        {% if user.is_authenticated %}
+        <a href="{% url 'kouryakusaito:create_post' %}" class="choicede">投稿フォームに行く</a>
+        {% else %}
+        <div class="containerd">
+            <div class="grid">
+                <a href="{% url 'accounts:login' %}"class="choiced">ログイン</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<br>
+
+<!-- レコードの一覧表示 -->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            {% for record in orderby_records %}
+            <!-- 記事プレビュー -->
+            <div class="post-preview">
+                <a href="{% url 'kouryakusaito:kouryaku_detail' record.pk %}">
+                    <!-- 記事タイトル -->
+                    <h2 class="post-title">{{ record.title }}</h2>
+                    <!-- 記事内容（サブタイトル） -->
+                    <h3 class="post-subtitle">
+                        <span style="font-size: 14pt">{{ record.contect|truncatechars:50 }}</span>
+                    </h3>
+                </a>
+                <!-- 投稿日時とカテゴリ -->
+                <p class="post-meta">
+                    {{ record.posted_at }} に投稿 / 
+                    カテゴリ: {{ record.get_category_display }} / 
+                    投稿者: {{ record.author.username }}
+                </p>
+                <!-- 自分の投稿の場合のみ削除ボタンを表示 -->
+                {% if record.author == user %}
+                <form action="{% url 'kouryakusaito:delete_post' record.pk %}" method="GET">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">削除</button>
+                </form>
+            {% endif %}
+            </div>
+
+            {% empty %}
+                <p>no</p>
+            {% endfor %}
+
+            <!-- ページネーション -->
+            {% include "pagination.html" %}
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+<style>
+    .choicede {
+        display: block; /* リンク全体をクリック可能に */
+        width: 200px; /* 各選択肢の横幅 */
+        height: 50px; /* 各選択肢の高さ */
+        font-size: 18px; /* 文字サイズ */
+        text-align: center; /* テキスト中央揃え */
+        line-height: 50px; /* 高さと同じ値で垂直方向中央揃え */
+        background-color: #007BFF; /* 背景色 */
+        border: 1px solid black; /* ボーダー */
+        border-radius: 5px; /* 角を丸くする */
+        color: black; /* 文字色 */
+        text-decoration: none; /* 下線を削除 */
+        transition: background-color 0.3s ease; /* ホバー時のスムーズな変化 */
+    }
+
+    .choicede:hover {
+        background-color: #0056b3;
+    }
+
+    .containerdd {
+        display: flex; /* フレックスボックスを有効化 */
+        flex-direction: column;
+        justify-content: flex-start; /* 縦方向で中央揃え */
+        align-items: center; /* 縦方向で中央揃え */
+        height: 0vh; /* 画面全体の高さを確保 */
+        position: relative;
+        top: 10px;
+        margin: 20px 0;
+    }
+
+    .griddd {
+        display: flex; /* フレックスボックス */
+        flex-wrap: wrap; /* 子要素を折り返す */
+        gap: 20px; /* 子要素間のスペース */
+        max-width: 600px; /* グリッド全体の幅を制限 */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        text-align: center;
+    
+    }
+
+    .containerdd-choice {
+        display: flex; /* フレックスボックスを使用 */
+        justify-content: center; /* 中央揃え */
+        align-items: flex-start; /* 垂直方向で上揃え */
+        margin-top: 10px; /* ページ上部とのスペース */
+    }
+
+    .choiced {
+        display: block; /* リンク全体をクリック可能に */
+        width: 150px; /* 各選択肢の横幅 */
+        height: 50px; /* 各選択肢の高さ */
+        font-size: 18px; /* 文字サイズ */
+        text-align: center; /* テキスト中央揃え */
+        line-height: 50px; /* 高さと同じ値で垂直方向中央揃え */
+        background-color: #007BFF; /* 背景色 */
+        border: 1px solid black; /* ボーダー */
+        border-radius: 5px; /* 角を丸くする */
+        color: black; /* 文字色 */
+        text-decoration: none; /* 下線を削除 */
+        transition: background-color 0.3s ease; /* ホバー時のスムーズな変化 */
+    }
+
+    /* ホバー時のスタイル */
+    .choiced:hover {
+        background-color: #0056b3; /* ホバー時の背景色 */
+    }
+    
+</style>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% block content %}
+<div class="center-container">
+  <h1>投稿削除確認</h1>
+  <p class="delete-message">本当にこの投稿を削除しますか？</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="delete-button">削除する</button>
+    <a href="{% url 'kouryakusaito:keijiban' %}" class="cancel-link">キャンセル</a>
+  </form>
+</div>
+
+  <style>
+    /* 外側コンテナの中央揃え設定 */
+    .center-container {
+        display: flex; /* フレックスボックスを有効化 */
+        flex-direction: column; /* 縦方向に配置 */
+        justify-content: center; /* 縦方向で中央揃え */
+        align-items: center; /* 横方向で中央揃え */
+        height: 100vh; /* ビューポートの高さを指定 */
+        text-align: center; /* テキストを中央揃え */
+    }
+
+    .delete-message {
+      font-size: 30px; /* テキストのフォントサイズを指定 */
+      color: black;    /* 任意のテキスト色 */
+      margin-bottom: 30px;
+    }
+  
+    .delete-button {
+      font-size: 16px; /* ボタンのテキストサイズを指定 */
+      padding: 10px 20px; /* ボタンの内側の余白を指定 */
+      background-color: red; /* ボタンの背景色 */
+      color: white; /* ボタンの文字色 */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+    }
+  
+    .delete-button:hover {
+      background-color: #ff0000; /* ホバー時の背景色 */
+    }
+  
+    .cancel-link {
+      font-size: 16px; /* キャンセルリンクのフォントサイズ */
+      margin-left: 15px; /* ボタンとの間隔 */
+      text-decoration: none;
+      color: #007bff;
+      margin: 10px;
+    }
+  
+    .cancel-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+{% endblock %}

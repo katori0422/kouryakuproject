@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}アイテム{% endblock %}
+
+{% block item %}
+<style>
+        .container {
+            display: flex;
+            gap: 0px;
+            justify-content: flex-start;
+            text-align: left;
+            margin: 0;
+        }
+        .box {
+            border: 2px solid black; /*枠線を作る*/
+            padding: 2px; /*枠内の余白*/
+            max-width: 810px;
+            word-wrap: break-word;
+            width: auto; /*幅*/
+            margin-left: 12px;
+        }
+        .small-box {
+            border: 2px solid black; /*枠線を作る*/
+            padding: 2px; /*枠内の余白*/
+            width: 105px; /*幅*/
+            height: auto; /*高さ*/
+        }
+</style>
+
+<div style="text-align: left;">
+    <img src="{% static 'images/siro.png' %}" alt="白" style="margin-left: 12px; border: 2px solid black; width: 250px; height: 150px">
+    <div class="container">
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+    </div>
+    <!-- 半分の画面の文字数　31文字 -->
+    <!-- 最大の画面の文字数　40文字 -->
+    <div class="box">空</div>
+</div>
+<br>
+<div style="text-align: left;">
+    <img src="{% static 'images/siro.png' %}" alt="白" style="margin-left: 12px; border: 2px solid black; width: 250px; height: 150px">
+    <div class="container">
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+        <div class="small-box">空</div>
+    </div>
+    <div class="box">空</div>
+</div>
+<br>
+<br>
+{% endblock %}

@@ -1,0 +1,11 @@
+
+    <h1>投稿一覧</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <strong>{{ post.title }}</strong> 
+                (カテゴリ: {{ post.get_category_display }})  <!-- カテゴリ名を表示 -->
+                <p>{{ post.content }}</p>
+            </li>
+        {% endfor %}
+    </ul>

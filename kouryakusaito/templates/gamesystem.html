@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ゲームシステム{% endblock %}
+
+{% block gamesystem %}
+
+<div style="text-align: left;">
+    <div class="container">
+       
+    </div>
+    <!-- 半分の画面の文字数　31文字 -->
+    <!-- 最大の画面の文字数　40文字 -->
+    <div class="box">空</div>
+</div>
+
+{% endblock %}
+
+<style>
+    .box {
+        border: 2px solid black; /*枠線を作る*/
+        padding: 2px; /*枠内の余白*/
+        max-width: 810px;
+        word-wrap: break-word;
+        width: auto; /*幅*/
+        margin-left: 12px;
+        }
+
+    .container {
+        display: flex;
+        gap: 0px;
+        justify-content: flex-start;
+        text-align: left;
+        margin: 0;
+    }
+</style>

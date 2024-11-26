@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}攻略サイト{% endblock %}
+
+{% block menu %}
+<style>
+        /* 親コンテナ */
+        .container {
+            display: flex; /* フレックスボックスを有効化 */
+            justify-content: center; /* 横方向で中央揃え */
+            align-items: center; /* 縦方向で中央揃え */
+            height: 50vh; /* 画面全体の高さを確保 */
+        }
+        
+        /* グリッド全体を中央揃えに */
+        .grid {
+            display: flex; /* フレックスボックス */
+            flex-wrap: wrap; /* 子要素を折り返す */
+            gap: 20px; /* 子要素間のスペース */
+            justify-content: center; /* 子要素を中央揃え */
+            max-width: 600px; /* グリッド全体の幅を制限 */
+        }
+        /* リンクとしての選択肢 */
+        .choice {
+            display: block; /* リンク全体をクリック可能に */
+            width: 150px; /* 各選択肢の横幅 */
+            height: 50px; /* 各選択肢の高さ */
+            font-size: 18px; /* 文字サイズ */
+            text-align: center; /* テキスト中央揃え */
+            line-height: 50px; /* 高さと同じ値で垂直方向中央揃え */
+            background-color: white; /* 背景色 */
+            border: 1px solid black; /* ボーダー */
+            border-radius: 5px; /* 角を丸くする */
+            color: black; /* 文字色 */
+            text-decoration: none; /* 下線を削除 */
+            transition: background-color 0.3s ease; /* ホバー時のスムーズな変化 */
+        }
+        /* ホバー時のスタイル */
+        .choice:hover {
+            background-color: rgb(188, 245, 253); /* ホバー時の背景色 */
+        }
+        hr {
+            height: 5px !important; /* 線の高さ（太さ） */
+            background-color: black !important; /* 線の色 */
+            border: none !important; /* デフォルトのボーダーを消す */
+        }
+        /* 親コンテナ　ログイン系 */
+        .containerd {
+            display: flex; /* フレックスボックスを有効化 */
+            flex-direction: column;
+            justify-content: flex-start; /* 縦方向で中央揃え */
+            align-items: center; /* 縦方向で中央揃え */
+            height: 0vh; /* 画面全体の高さを確保 */
+            position: relative;
+            top: 10px;
+        }
+
+        .containerd-choice {
+            display: flex; /* フレックスボックスを使用 */
+            justify-content: center; /* 中央揃え */
+            align-items: flex-start; /* 垂直方向で上揃え */
+            margin-top: 10px; /* ページ上部とのスペース */
+        }
+        /* グリッド全体を中央揃えに */
+        .gridd {
+            display: flex; /* フレックスボックス */
+            flex-wrap: wrap; /* 子要素を折り返す */
+            gap: 20px; /* 子要素間のスペース */
+            max-width: 600px; /* グリッド全体の幅を制限 */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            text-align: center;
+     
+        }
+        /* リンクとしての選択肢 */
+        .choiced {
+            display: block; /* リンク全体をクリック可能に */
+            width: 150px; /* 各選択肢の横幅 */
+            height: 50px; /* 各選択肢の高さ */
+            font-size: 18px; /* 文字サイズ */
+            text-align: center; /* テキスト中央揃え */
+            line-height: 50px; /* 高さと同じ値で垂直方向中央揃え */
+            background-color: #007BFF; /* 背景色 */
+            border: 1px solid black; /* ボーダー */
+            border-radius: 5px; /* 角を丸くする */
+            color: black; /* 文字色 */
+            text-decoration: none; /* 下線を削除 */
+            transition: background-color 0.3s ease; /* ホバー時のスムーズな変化 */
+        }
+        .choicedd {
+            display: block; /* リンク全体をクリック可能に */
+            width: 200px; /* 各選択肢の横幅 */
+            height: 50px; /* 各選択肢の高さ */
+            font-size: 18px; /* 文字サイズ */
+            text-align: center; /* テキスト中央揃え */
+            line-height: 50px; /* 高さと同じ値で垂直方向中央揃え */
+            background-color: #007BFF; /* 背景色 */
+            border: 1px solid black; /* ボーダー */
+            border-radius: 5px; /* 角を丸くする */
+            color: black; /* 文字色 */
+            text-decoration: none; /* 下線を削除 */
+            transition: background-color 0.3s ease; /* ホバー時のスムーズな変化 */
+        }
+        /* ホバー時のスタイル */
+        .choiced:hover {
+            background-color: #0056b3; /* ホバー時の背景色 */
+        }
+</style>
+<div class="containerd">
+    <div class="grid">
+        <!-- ナビゲーションボタン -->
+        {% if user.is_authenticated %}
+        <!-- ログイン中のボタン -->
+        <a href="{% url 'password_reset' %}"class="choicedd">パスワードのリセット</a>
+        <form style='display: inline' action='{% url "accounts:logout" %}' method='post'>
+            {% csrf_token %}
+            <button type="submit" class="choiced">ログアウト</button>
+        </form>
+        {% else %}
+        <!-- ログイン状態ではない場合のボタン -->
+        <a href="{% url 'accounts:signup' %}"class="choiced">サインアップ</a>
+        <a href="{% url 'accounts:login' %}"class="choiced">ログイン</a>
+        {% endif %}
+        <div class="container">
+            <div class="grid">
+                <!-- リンクとしての選択肢 -->
+                <a href="{% url 'kouryakusaito:character' %}" class="choice">キャラクター</a>
+                <a href="{% url 'kouryakusaito:enemy' %}" class="choice">敵</a>
+                <a href="{% url 'kouryakusaito:item' %}" class="choice">アイテム</a>
+                <a href="{% url 'kouryakusaito:keijiban' %}" class="choice">掲示板</a>
+                <a href="{% url 'kouryakusaito:gamesystem' %}" class="choice">ゲームシステム</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,85 @@
+
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>投稿フォーム</title>
+    </head>
+    <body>
+        <form method="post">
+            <h1>投稿フォーム</h1>
+            {% csrf_token %}
+            <div>
+                <label for="id_title">タイトル:</label>
+                <input type="text" id="id_title" name="title" maxlength="200" required>
+            </div>
+            <div>
+                <label for="id_content">本文:</label>
+                <textarea id="id_content" name="content" rows="5" required></textarea>
+            </div>
+            <div>
+                <label for="id_category">カテゴリ:</label>
+                <select id="id_category" name="category" required>
+                    <option value="character">キャラクターのこと</option>
+                    <option value="enemy">敵のこと</option>
+                    <option value="item">アイテム</option>
+                </select>
+            </div>
+            <button type="submit">投稿する</button>
+        </form>
+    </body>
+</html>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 18px; /* 全体の文字サイズ */
+        line-height: 1.6; /* 行間を調整 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 画面全体に中央揃え */
+        margin: 0;
+        background-color: #f8f9fa; /* 背景色を淡い色に */
+    }
+    form {
+        width: 100%;
+        max-width: 600px; /* 最大幅を設定 */
+        padding: 20px;
+        background-color: #fff; /* フォーム背景色 */
+        border-radius: 10px; /* 角を丸く */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影をつけて浮かせる */
+    }
+    h1 {
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 18px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
